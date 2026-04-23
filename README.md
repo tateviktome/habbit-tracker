@@ -58,12 +58,27 @@ src/
 - **No undo** — deleting a habit is permanent (confirmation dialog is the only safeguard).
 - **AI features are hardcoded** — suggestions and encouragement use curated lists, not a live AI model.
 
-## Demo Script
+## AI Squad
 
-1. Open the app — show the clean empty state
-2. Click "Need ideas?" — pick a suggestion chip to add a habit instantly
-3. Type a custom habit name and add it
-4. Check off both habits — show green highlight and streak badge
-5. Refresh the page — show data persists
-6. Point out the weekly view with today's completion dots
-7. Tab through with keyboard to show accessibility
+Built by **Habbit Hunters** — a 6-agent AI squad:
+
+| Agent | Name | Role |
+|-------|------|------|
+| Product Owner | Spark | Defined scope, stories, success criteria |
+| Delivery Lead | Captain | Task breakdown, HITL gates, coordination |
+| Engineer | Forge | Built the working application |
+| QA / QE | Hawkeye | 14 test scenarios, smoke test procedure |
+| Security | Sentinel | Risk assessment, vulnerability review |
+| Documentation | Scribe | README, demo script, handover docs |
+
+Charters: `.squad/agents/{name}/charter.md`
+
+## Demo Script (3 min)
+
+| Time | Speaker | What |
+|------|---------|------|
+| 0:00-0:45 | Spark | Problem statement + scope |
+| 0:45-2:15 | Forge + Hawkeye | Live demo + verification |
+| 2:15-3:00 | Captain + Sentinel + Scribe | Process, security, reflection |
+
+See `.squad/demo-script.md` for full speaking notes.

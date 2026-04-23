@@ -1,0 +1,37 @@
+{
+  "name": "Habbit Hunters",
+  "description": "AI Squad for building a habit tracker in a 60-minute sprint",
+  "challenge": "Option B: Utility App with AI Feature",
+  "agents": [
+    {
+      "name": "Spark",
+      "role": "Product Owner",
+      "charter": ".squad/agents/spark/charter.md"
+    },
+    {
+      "name": "Captain",
+      "role": "Delivery Lead",
+      "charter": ".squad/agents/captain/charter.md"
+    },
+    {
+      "name": "Forge",
+      "role": "Engineer",
+      "charter": ".squad/agents/forge/charter.md"
+    },
+    {
+      "name": "Hawkeye",
+      "role": "QA / QE",
+      "charter": ".squad/agents/hawkeye/charter.md"
+    },
+    {
+      "name": "Sentinel",
+      "role": "Security",
+      "charter": ".squad/agents/sentinel/charter.md"
+    },
+    {
+      "name": "Scribe",
+      "role": "Documentation",
+      "charter": ".squad/agents/scribe/charter.md"
+    }
+  ]
+}
