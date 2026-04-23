@@ -1,8 +1,9 @@
 .app {
-  max-width: 540px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 0 1.25rem 4rem;
+  padding: 0 1.5rem 4rem;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .main {

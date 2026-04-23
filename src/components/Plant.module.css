@@ -1,0 +1,139 @@
+.container {
+  margin: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1.25rem 1.25rem;
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4, #f7fee7);
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.plantEmoji {
+  font-size: 3rem;
+  line-height: 1;
+  transition: transform 0.3s;
+}
+
+.plantEmoji:not(.wilting) {
+  animation: gentle-bounce 3s ease-in-out infinite;
+}
+
+.wilting {
+  filter: grayscale(0.3);
+  opacity: 0.7;
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.stageName {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #166534;
+}
+
+.description {
+  font-size: 0.78rem;
+  color: #4ade80;
+  font-weight: 500;
+}
+
+/* --- Stages track --- */
+
+.stagesTrack {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0 0;
+}
+
+.stagesTrack::before {
+  content: '';
+  position: absolute;
+  top: calc(0.5rem + 0.875rem);
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  z-index: 0;
+}
+
+.stagesProgress {
+  position: absolute;
+  top: calc(0.5rem + 0.875rem);
+  left: 1.25rem;
+  height: 3px;
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+  border-radius: 999px;
+  z-index: 1;
+  transition: width 0.5s ease;
+  max-width: calc(100% - 2.5rem);
+}
+
+.stageNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  z-index: 2;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0.35;
+}
+
+.stageNode.reached {
+  opacity: 1;
+}
+
+.stageNode.current {
+  transform: scale(1.15);
+}
+
+.stageEmoji {
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.reached .stageEmoji {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.current .stageEmoji {
+  background: white;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+}
+
+.stageDay {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #16a34a;
+  opacity: 0.7;
+}
+
+.reached .stageDay {
+  opacity: 1;
+}

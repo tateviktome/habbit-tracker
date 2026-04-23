@@ -4,12 +4,13 @@ import styles from './HabitList.module.css';
 
 interface Props {
   habits: Habit[];
+  today: string;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
   onDeleteAll: () => void;
 }
 
-export function HabitList({ habits, onToggle, onDelete, onDeleteAll }: Props) {
+export function HabitList({ habits, today, onToggle, onDelete, onDeleteAll }: Props) {
   if (habits.length === 0) {
     return (
       <section className={styles.empty} aria-label="Habits list">
@@ -36,6 +37,7 @@ export function HabitList({ habits, onToggle, onDelete, onDeleteAll }: Props) {
           <HabitItem
             key={habit.id}
             habit={habit}
+            today={today}
             onToggle={onToggle}
             onDelete={onDelete}
           />

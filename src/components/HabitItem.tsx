@@ -4,13 +4,14 @@ import styles from './HabitItem.module.css';
 
 interface Props {
   habit: Habit;
+  today: string;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
-export function HabitItem({ habit, onToggle, onDelete }: Props) {
-  const completed = isCompletedToday(habit);
-  const streak = getStreak(habit);
+export function HabitItem({ habit, today, onToggle, onDelete }: Props) {
+  const completed = isCompletedToday(habit, today);
+  const streak = getStreak(habit, today);
 
   function handleDelete() {
     if (window.confirm(`Delete "${habit.name}"? This cannot be undone.`)) {

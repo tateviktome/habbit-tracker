@@ -16,10 +16,16 @@ export function HabitForm({ onAdd, existingNames }: Props) {
     setQuickSuggestions(getTwoSuggestions(existingNames));
   }, [existingNames]);
 
+  function isValid(value: string): boolean {
+    if (value.length < 3 || value.length > 60) return false;
+    if (!/[a-zA-Z]/.test(value)) return false;
+    return true;
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const trimmed = name.trim();
-    if (!trimmed) return;
+    if (!trimmed || !isValid(trimmed)) return;
     onAdd(trimmed);
     setName('');
     inputRef.current?.focus();
@@ -53,8 +59,9 @@ export function HabitForm({ onAdd, existingNames }: Props) {
           placeholder="Type a habit or pick a suggestion..."
           className={styles.input}
           autoComplete="off"
+          maxLength={60}
         />
-        <button type="submit" className={styles.addBtn} disabled={!name.trim()}>
+        <button type="submit" className={styles.addBtn} disabled={!name.trim() || !isValid(name.trim())}>
           Add
         </button>
       </form>

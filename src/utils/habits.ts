@@ -1,26 +1,27 @@
 import type { Habit } from '../types';
 
-export function todayISO(): string {
-  return new Date().toISOString().split('T')[0];
+export function todayISO(override?: string): string {
+  return override ?? new Date().toISOString().split('T')[0];
 }
 
-export function isCompletedToday(habit: Habit): boolean {
-  return habit.completions.includes(todayISO());
+export function isCompletedToday(habit: Habit, today: string): boolean {
+  return habit.completions.includes(today);
 }
 
-export function getStreak(habit: Habit): number {
-  const sorted = [...habit.completions].sort().reverse();
+export function getStreak(habit: Habit, today: string): number {
+  // Only consider completions up to and including "today"
+  const validCompletions = habit.completions.filter(d => d <= today);
+  const sorted = [...new Set(validCompletions)].sort().reverse();
   if (sorted.length === 0) return 0;
 
-  const today = todayISO();
-  const yesterday = dateOffset(-1);
-
-  // Streak must include today or yesterday to be "active"
+  // Streak must start from today or yesterday
+  const yesterday = dateOffset(-1, today);
   if (sorted[0] !== today && sorted[0] !== yesterday) return 0;
 
+  // Walk backwards from the most recent valid completion
   let streak = 1;
   for (let i = 1; i < sorted.length; i++) {
-    const expected = dateOffset(-(i), sorted[0]);
+    const expected = dateOffset(-1, sorted[i - 1]);
     if (sorted[i] === expected) {
       streak++;
     } else {
@@ -30,13 +31,12 @@ export function getStreak(habit: Habit): number {
   return streak;
 }
 
-export function getWeekDates(): string[] {
+export function getWeekDates(today: string): string[] {
   const dates: string[] = [];
-  const today = new Date();
-  const day = today.getDay();
-  // Start from Monday (day 1), adjust if Sunday (day 0)
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - ((day + 6) % 7));
+  const todayDate = new Date(today + 'T00:00:00');
+  const day = todayDate.getDay();
+  const monday = new Date(todayDate);
+  monday.setDate(todayDate.getDate() - ((day + 6) % 7));
 
   for (let i = 0; i < 7; i++) {
     const d = new Date(monday);
@@ -46,13 +46,13 @@ export function getWeekDates(): string[] {
   return dates;
 }
 
-export function getWeekCompletions(habit: Habit): boolean[] {
-  const weekDates = getWeekDates();
+export function getWeekCompletions(habit: Habit, today: string): boolean[] {
+  const weekDates = getWeekDates(today);
   return weekDates.map(date => habit.completions.includes(date));
 }
 
-function dateOffset(days: number, from?: string): string {
-  const d = from ? new Date(from + 'T00:00:00') : new Date();
+function dateOffset(days: number, from: string): string {
+  const d = new Date(from + 'T00:00:00');
   d.setDate(d.getDate() + days);
   return d.toISOString().split('T')[0];
 }

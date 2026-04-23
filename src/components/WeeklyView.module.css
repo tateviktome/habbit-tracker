@@ -70,6 +70,10 @@
   text-align: left;
   color: #475569;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 110px;
 }
 
 .cell {

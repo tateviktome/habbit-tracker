@@ -5,10 +5,11 @@ import styles from './Encouragement.module.css';
 
 interface Props {
   habits: Habit[];
+  today: string;
 }
 
-export function Encouragement({ habits }: Props) {
-  const streaks = habits.map(h => ({ name: h.name, streak: getStreak(h) }));
+export function Encouragement({ habits, today }: Props) {
+  const streaks = habits.map(h => ({ name: h.name, streak: getStreak(h, today) }));
   const message = getBestEncouragement(streaks);
 
   if (!message) return null;

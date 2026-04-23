@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>Habit Tracker</h1>
+      <h1 className={styles.title}>Habios</h1>
       <p className={styles.date}>{today}</p>
     </header>
   );

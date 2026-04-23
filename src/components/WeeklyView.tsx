@@ -1,16 +1,16 @@
 import type { Habit } from '../types';
-import { getWeekDates, getWeekCompletions, formatDayShort, formatDateShort, todayISO } from '../utils/habits';
+import { getWeekDates, getWeekCompletions, formatDayShort, formatDateShort } from '../utils/habits';
 import styles from './WeeklyView.module.css';
 
 interface Props {
   habits: Habit[];
+  today: string;
 }
 
-export function WeeklyView({ habits }: Props) {
+export function WeeklyView({ habits, today }: Props) {
   if (habits.length === 0) return null;
 
-  const weekDates = getWeekDates();
-  const today = todayISO();
+  const weekDates = getWeekDates(today);
 
   return (
     <section className={styles.section} aria-label="Weekly overview">
@@ -33,7 +33,7 @@ export function WeeklyView({ habits }: Props) {
           </thead>
           <tbody>
             {habits.map(habit => {
-              const completions = getWeekCompletions(habit);
+              const completions = getWeekCompletions(habit, today);
               return (
                 <tr key={habit.id}>
                   <td className={styles.habitName}>{habit.name}</td>
