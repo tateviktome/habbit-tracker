@@ -1,0 +1,70 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.item.completed {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  flex: 1;
+}
+
+.checkbox {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: #22c55e;
+  cursor: pointer;
+}
+
+.name {
+  font-size: 0.95rem;
+  color: #1a1a2e;
+}
+
+.completed .name {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.streak {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #f59e0b;
+  background: #fffbeb;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0 0.25rem;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.deleteBtn:hover {
+  color: #ef4444;
+}
