@@ -1,12 +1,18 @@
 .section {
-  margin-top: 2rem;
+  background: white;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .heading {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1a1a2e;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
   margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tableWrap {
@@ -16,27 +22,25 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .table th,
 .table td {
-  padding: 0.5rem 0.4rem;
+  padding: 0.5rem 0.35rem;
   text-align: center;
 }
 
 .habitCol {
   text-align: left;
   font-weight: 600;
-  color: #374151;
-  min-width: 120px;
+  color: #475569;
+  min-width: 110px;
 }
 
 .dayCol {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.1rem;
+  text-align: center;
+  vertical-align: bottom;
 }
 
 .dayCol.today {
@@ -45,14 +49,17 @@
 }
 
 .dayName {
-  font-size: 0.75rem;
+  display: block;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  font-weight: 600;
 }
 
 .dayDate {
-  font-size: 0.7rem;
-  color: #9ca3af;
+  display: block;
+  font-size: 0.65rem;
+  color: #94a3b8;
 }
 
 .today .dayDate {
@@ -61,7 +68,7 @@
 
 .habitName {
   text-align: left;
-  color: #374151;
+  color: #475569;
   font-weight: 500;
 }
 
@@ -71,17 +78,19 @@
 
 .cell.today {
   background: #f5f3ff;
+  border-radius: 8px;
 }
 
 .dot {
   display: inline-block;
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.625rem;
+  height: 0.625rem;
   border-radius: 50%;
-  background: #e5e7eb;
-  transition: background 0.15s;
+  background: #e2e8f0;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .dot.done {
   background: #22c55e;
+  transform: scale(1.2);
 }

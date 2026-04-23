@@ -1,3 +1,35 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.deleteAllBtn {
+  padding: 0.3rem 0.75rem;
+  background: none;
+  border: 1.5px solid #fecaca;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ef4444;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.deleteAllBtn:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
+
 .list {
   display: flex;
   flex-direction: column;
@@ -9,7 +41,7 @@
 
 .empty {
   text-align: center;
-  padding: 2rem 1rem;
-  color: #9ca3af;
-  font-size: 0.95rem;
+  padding: 3rem 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
 }

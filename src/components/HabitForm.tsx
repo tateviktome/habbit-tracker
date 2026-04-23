@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { habitSuggestions } from '../utils/suggestions';
+import { useState, useRef, useEffect } from 'react';
+import { getTwoSuggestions, generatePersonalised } from '../utils/suggestions';
 import styles from './HabitForm.module.css';
 
 interface Props {
@@ -9,12 +9,12 @@ interface Props {
 
 export function HabitForm({ onAdd, existingNames }: Props) {
   const [name, setName] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [quickSuggestions, setQuickSuggestions] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const available = habitSuggestions.filter(
-    s => !existingNames.some(n => n.toLowerCase() === s.toLowerCase())
-  );
+  useEffect(() => {
+    setQuickSuggestions(getTwoSuggestions(existingNames));
+  }, [existingNames]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,14 +22,20 @@ export function HabitForm({ onAdd, existingNames }: Props) {
     if (!trimmed) return;
     onAdd(trimmed);
     setName('');
-    setShowSuggestions(false);
     inputRef.current?.focus();
   }
 
   function handleSuggestionClick(suggestion: string) {
     onAdd(suggestion);
-    setShowSuggestions(false);
     inputRef.current?.focus();
+  }
+
+  function handleGenerate() {
+    const suggestion = generatePersonalised(existingNames);
+    if (suggestion) {
+      onAdd(suggestion);
+      inputRef.current?.focus();
+    }
   }
 
   return (
@@ -44,7 +50,7 @@ export function HabitForm({ onAdd, existingNames }: Props) {
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Enter a new habit..."
+          placeholder="Type a habit or pick a suggestion..."
           className={styles.input}
           autoComplete="off"
         />
@@ -53,30 +59,32 @@ export function HabitForm({ onAdd, existingNames }: Props) {
         </button>
       </form>
 
+      {quickSuggestions.length > 0 && (
+        <div className={styles.suggestionsRow}>
+          {quickSuggestions.map(s => (
+            <button
+              key={s}
+              type="button"
+              className={styles.suggestionCard}
+              onClick={() => handleSuggestionClick(s)}
+              aria-label={`Add habit: ${s}`}
+            >
+              <span className={styles.suggestionPlus}>+</span>
+              <span className={styles.suggestionText}>{s}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
       <button
         type="button"
-        className={styles.suggestBtn}
-        onClick={() => setShowSuggestions(!showSuggestions)}
-        aria-expanded={showSuggestions}
+        className={styles.generateBtn}
+        onClick={handleGenerate}
+        aria-label="Generate a personalised habit suggestion"
       >
-        {showSuggestions ? 'Hide suggestions' : 'Need ideas?'}
+        <span className={styles.generateIcon}>&#9733;</span>
+        Generate a habit that would be best for me
       </button>
-
-      {showSuggestions && available.length > 0 && (
-        <ul className={styles.suggestions} role="list" aria-label="Habit suggestions">
-          {available.map(s => (
-            <li key={s}>
-              <button
-                type="button"
-                className={styles.chip}
-                onClick={() => handleSuggestionClick(s)}
-              >
-                {s}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
     </section>
   );
 }

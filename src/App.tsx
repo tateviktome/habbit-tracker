@@ -30,6 +30,8 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         habits: state.habits.filter(h => h.id !== action.id),
       };
+    case 'DELETE_ALL':
+      return { ...state, habits: [] };
     case 'TOGGLE_TODAY': {
       const today = todayISO();
       return {
@@ -67,6 +69,11 @@ export default function App() {
           habits={state.habits}
           onToggle={id => dispatch({ type: 'TOGGLE_TODAY', id })}
           onDelete={id => dispatch({ type: 'DELETE_HABIT', id })}
+          onDeleteAll={() => {
+            if (window.confirm('Delete all habits? This cannot be undone.')) {
+              dispatch({ type: 'DELETE_ALL' });
+            }
+          }}
         />
         <WeeklyView habits={state.habits} />
       </main>
