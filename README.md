@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple, accessible web app for building daily habits. Track your progress with streaks, weekly overviews, and curated suggestions — all in your browser, no account required.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Production Build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
 ```
+
+Output is in `dist/` — serve with any static file server.
+
+## Key Features
+
+- **Add habits** — type a name or pick from curated suggestion chips
+- **Daily check-off** — checkbox per habit, visual feedback when done
+- **Streak tracking** — consecutive day count shown per habit
+- **Weekly overview** — Mon-Sun grid with completion dots
+- **Encouragement** — milestone messages at 3, 7, 14, and 30 day streaks
+- **Persistent** — all data saved to localStorage, survives page refresh
+- **Accessible** — semantic HTML, ARIA labels, full keyboard navigation, WCAG AA contrast
+
+## Tech Stack
+
+- React 19 + TypeScript
+- Vite 8
+- CSS Modules
+- localStorage (no backend)
+
+## Project Structure
+
+```
+src/
+  types.ts                    # Habit, AppState, Action types
+  App.tsx                     # Root component with reducer
+  hooks/usePersistedReducer.ts  # Reducer + localStorage sync
+  utils/habits.ts             # Streak, weekly, date utilities
+  utils/suggestions.ts        # Curated suggestions + encouragement
+  components/                 # Header, HabitForm, HabitList, HabitItem,
+                              # WeeklyView, Encouragement
+```
+
+## Known Limitations
+
+- **No cloud sync** — data lives only in this browser's localStorage. Clearing browser data deletes everything.
+- **No data export** — no way to back up or migrate habit history yet.
+- **No reminders** — the app doesn't send notifications or reminders.
+- **Single device** — no account system, so habits don't sync across devices.
+- **No undo** — deleting a habit is permanent (confirmation dialog is the only safeguard).
+- **AI features are hardcoded** — suggestions and encouragement use curated lists, not a live AI model.
+
+## Demo Script
+
+1. Open the app — show the clean empty state
+2. Click "Need ideas?" — pick a suggestion chip to add a habit instantly
+3. Type a custom habit name and add it
+4. Check off both habits — show green highlight and streak badge
+5. Refresh the page — show data persists
+6. Point out the weekly view with today's completion dots
+7. Tab through with keyboard to show accessibility
